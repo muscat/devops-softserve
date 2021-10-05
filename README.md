@@ -1,2 +1,2 @@
 # devops
-homeworks for DevOps crash course
+homeworks for Softserve DevOps Crash Course
