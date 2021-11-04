@@ -1,0 +1,35 @@
+version: '2'
+services:
+
+    mysql:
+        restart:
+            always
+        build:
+            context: ./mysql
+            dockerfile: Dockerfile
+        volumes:
+            - ./mysql/conf/my.cnf:/etc/my.cnf
+            - ./mysql/startup-scripts:/docker-entrypoint-initdb.d
+            - ./mysql/mysql-data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: Qwer-1234
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpressuser
+            MYSQL_PASSWORD: eleRium115
+
+
+    web:
+        restart:
+            always
+        build:
+            context: ./web
+            dockerfile: Dockerfile
+        volumes:
+            - ./web/html:/var/www/html
+        ports:
+            - "80:80"
+        environment:
+          WORDPRESS_DB_HOST: mysql:3306
+          WORDPRESS_DB_USER: wordpressuser
+          WORDPRESS_DB_PASSWORD: eleRium115
+          WORDPRESS_DB_NAME: wordpress
